@@ -17,9 +17,9 @@ metadata:
   name: activemq
 spec:
   replicas: 0
-#  selector:
-#    matchLabels:
-#      app: activemq
+  selector:
+    matchLabels:
+      app: activemq
   template:
     metadata:
       name: activemq
