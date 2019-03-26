@@ -7,15 +7,14 @@ spec:
   selector:
     matchLabels:
       app: datarouter
-      tier: app
-      role: master
   template:
     metadata:
       name: datarouter
       labels:
         app: datarouter
-        tier: app
-        role: master
+        tier: application
+        container_name: datarouter
+        environment: {{ .Values.label.ENVIRONMENT }}
     spec:
       serviceAccountName: {{.Release.Namespace}}-sa
       volumes:      
@@ -96,18 +95,46 @@ spec:
           value: {{ .Values.logzio.token | quote }}
         - name:  LOGZIO_URL
           value: {{ .Values.logzio.url | quote }}
-        - name: CONTAINER_NAME
-          value: datarouter
         - name: NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
-        - name: POD_NAME
-          value: datarouter
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
         - name: NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_SERVICE_ACCOUNT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
+        - name: POD_UNIQUE_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.uid
+        - name: CONTAINER_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['container_name']
+        - name: ENVIRONMENT
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['environment']
+        - name: APP_TIER
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['tier']
         resources:
           limits:
             memory: {{ .Values.logzio.memory }}Mi
