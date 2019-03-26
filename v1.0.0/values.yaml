@@ -4,15 +4,15 @@ application:
   upgrade:
     location: {INSTANCE_DOWNLOAD_URL}
 image:
-  TOMCAT: metricstream/images:e13s-tomcat-9.0.10
+  TOMCAT: metricstream/images:e13s-tomcat-8.5.28
   DATAROUTER: metricstream/images:e13s-datarouter-2.17.7
   ACTIVEMQ: metricstream/images:e13s-activemq-5.14.5
   ELASTICSEARCH: metricstream/images:e13s-elasticsearch-2.4.1
   LIBREOFFICE: metricstream/images:e13s-libreoffice-5.2.3.3
   MONGO: metricstream/images:e13s-mongodb-2.6.12
-  ORACLE: metricstream/images:e13s-oracle-12.2.0.1
+  ORACLE: metricstream/images:e13s-oracle-11.2.0.4.0
   MAINTENANCE: metricstream/images:e13s-maintenance-1.0.0
-  INSTANCE_RESTORE_UPGRADE: metricstream/images:k8s-instance-restore-m7ri-M7-OCT18-U2-12c2
+  INSTANCE_RESTORE_UPGRADE: metricstream/images:e13s-instance-restore-m7ri-20180706
   KIBANA: docker.elastic.co/kibana/kibana-oss:6.3.2
   FLUENTD: k8s.gcr.io/fluentd-elasticsearch:v2.2.0
   ELASTICSEARCH_LOGGING: k8s.gcr.io/elasticsearch:v6.3.0
