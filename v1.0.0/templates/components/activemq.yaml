@@ -29,7 +29,7 @@ spec:
         container_name: activemq
         environment: {{ .Values.label.ENVIRONMENT }}
     spec:
-      serviceAccountName: security-service-account
+      serviceAccountName: common-service-account
       volumes:
       - name: data
         persistentVolumeClaim:

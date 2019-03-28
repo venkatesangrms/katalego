@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: oracle
+  labels:
+    app: oracle
+    tier: db
+    role: master
 spec:
   ports:
     - name: oracle
@@ -20,14 +24,17 @@ spec:
   selector:
     matchLabels:
       app: oracle
+      tier: persistent-tier
+      role: master
   template:
     metadata:
       name: oracle
       labels:
         app: oracle
         tier: db
+        role: master
     spec:
-      serviceAccountName: security-service-account
+      serviceAccountName: common-service-account
       volumes: 
       - name: data
         persistentVolumeClaim:
@@ -112,7 +119,7 @@ spec:
       imagePullSecrets:
       - name: container-registry-key
       securityContext:
-        runAsUser: 1000
+        runAsUser: 54321
         runAsNonRoot: true
-        fsGroup: 1000
+        fsGroup: 54321
       allowedCapabilities: null

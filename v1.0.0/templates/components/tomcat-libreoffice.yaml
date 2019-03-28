@@ -45,7 +45,7 @@ spec:
         container_name: tomcat
         environment: {{ .Values.label.ENVIRONMENT }}
     spec:
-      serviceAccountName: security-service-account
+      serviceAccountName: common-service-account
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -167,6 +167,20 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           limits:
+            {{- if (eq "Small" .Values.resourceUnit.size) }}
+            memory: {{ .Values.resourceUnit.small.memory.max.LIBREOFFICE }}Mi
+            cpu: {{ .Values.resourceUnit.small.cpu.max.LIBREOFFICE }}m
+            {{- else if (eq "Medium" .Values.resourceUnit.size) }}
+            memory: {{ .Values.resourceUnit.medium.memory.max.LIBREOFFICE }}Mi
+            cpu: {{ .Values.resourceUnit.medium.cpu.max.LIBREOFFICE }}m
+            {{- else if (eq "Large" .Values.resourceUnit.size) }}
+            memory: {{ .Values.resourceUnit.large.memory.max.LIBREOFFICE }}Mi
+            cpu: {{ .Values.resourceUnit.large.cpu.max.LIBREOFFICE }}m
+            {{- else if (eq "Xlarge" .Values.resourceUnit.size) }}
+            memory: {{ .Values.resourceUnit.xlarge.memory.max.LIBREOFFICE }}Mi
+            cpu: {{ .Values.resourceUnit.xlarge.cpu.max.LIBREOFFICE }}m
+            {{- end }}
+          requests:
             {{- if (eq "Small" .Values.resourceUnit.size) }}
             memory: {{ .Values.resourceUnit.small.memory.max.LIBREOFFICE }}Mi
             cpu: {{ .Values.resourceUnit.small.cpu.max.LIBREOFFICE }}m

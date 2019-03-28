@@ -16,7 +16,7 @@ spec:
         container_name: datarouter
         environment: {{ .Values.label.ENVIRONMENT }}
     spec:
-      serviceAccountName: security-service-account
+      serviceAccountName: common-service-account
       volumes:      
       - name: datarouter
         persistentVolumeClaim:
